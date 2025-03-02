@@ -7,6 +7,7 @@ import songsRoutes from './routes/songs.route.js'
 import albumsRoutes from './routes/albums.route.js'
 import statisticsRoutes from './routes/statistics.route.js'
 import { connectDB } from './lib/db.js'
+import { clerkMiddleware } from '@clerk/express'
 
 dotenv.config();
 
@@ -14,7 +15,7 @@ const app = express();
 const PORT = process.env.PORT
 
 app.use(express.json()) //To parse req.body
-
+app.use(clerkMiddleware()) //Add the auth to req obj => req.auth
 app.use("/api/users", userRoutes)
 app.use("/api/authentication", authenticationRoutes)
 app.use("/api/admin", adminRoutes)
